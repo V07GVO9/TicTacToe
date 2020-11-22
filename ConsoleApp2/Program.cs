@@ -31,8 +31,29 @@ namespace TicTacToe
                 Console.WriteLine("\n");
                 DisplayBoard();
                 choice = int.Parse(Console.ReadLine());
-                CheckGameStatus();
+
+                var success = SetField();
+                if (!success)
+                {
+                    Console.WriteLine("Sorry the row {0} is already marked with {1}", choice, arr[choice]);
+                    Console.WriteLine("\n");
+                    Console.WriteLine("Please wait 2 second board is loading again.....");
+                    Thread.Sleep(2000);
+                }
+
+                gameStatus = CheckGameStatus();
             } while (gameStatus == GameStatus.running);
+            Console.Clear();
+            DisplayBoard();
+            if (gameStatus == GameStatus.won)
+            {
+                Console.WriteLine("Player {0} has won", (activePlayer % 2) + 1);
+            }
+            else
+            {
+                Console.WriteLine("Draw");
+            }
+            Console.ReadLine();
         }
 
         private static void DisplayBoard()
@@ -71,6 +92,24 @@ namespace TicTacToe
             {
                 return GameStatus.running;
             }
+        }
+        private static bool SetField()
+        {
+            if (arr[choice] != 'X' && arr[choice] != 'O')
+            {
+                if ((int)activePlayer % 2 == 0)
+                {
+                    arr[choice] = 'O';
+                    activePlayer++;
+                }
+                else
+                {
+                    arr[choice] = 'X';
+                    activePlayer++;
+                }
+                return true;
+            }
+            return false;
         }
     }
 }
