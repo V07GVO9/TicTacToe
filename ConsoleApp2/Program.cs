@@ -55,7 +55,9 @@ namespace TicTacToe
             }
             Console.ReadLine();
         }
-
+        /// <summary>
+        /// Displays the board
+        /// </summary>
         private static void DisplayBoard()
         {
             Console.WriteLine("     |     |      ");
@@ -69,6 +71,10 @@ namespace TicTacToe
             Console.WriteLine("     |     |      ");
         }
 
+        /// <summary>
+        /// Determines if game continues or is finished by a winner or a draw
+        /// </summary>
+        /// <returns>Status of the game</returns>
         private static GameStatus CheckGameStatus()
         {
             if (arr[1] == arr[2] && arr[2] == arr[3] ||
@@ -93,6 +99,11 @@ namespace TicTacToe
                 return GameStatus.running;
             }
         }
+
+        /// <summary>
+        /// Sets field with value X or O
+        /// </summary>
+        /// <returns>false, when selected field is already set</returns>
         private static bool SetField()
         {
             if (arr[choice] != 'X' && arr[choice] != 'O')
